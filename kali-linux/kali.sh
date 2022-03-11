@@ -59,7 +59,7 @@ swap-setup() {
     sudo fallocate -l 10G  /swap/swapfile-10G.swp    
     sudo fallocate -l 50G  /swap/swapfile-50G.swp
     sudo fallocate -l 100G /swap/swapfile-100G.swp
-    sudo chmod 600 /swap/*
+    sudo chown root.root /swap/* && sudo chmod 600 /swap/*
     sudo mkswap /swap/swapfile-5G.swp
     sudo mkswap /swap/swapfile-10G.swp
     sudo mkswap /swap/swapfile-50G.swp
