@@ -9,7 +9,7 @@ full-install() {
 }
 
 windows() {
-    kex --esm --ip -s
+    kex --esm --ip 
 }
 
 
