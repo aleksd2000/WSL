@@ -55,16 +55,29 @@ gh() {
 }
 
 swap-setup() {
-    sudo fallocate -l 50G /swapfile-50G
-    sudo mkswap /swapfile-50G
+    sudo fallocate -l 5G   /swap/swapfile-5G.swp    
+    sudo fallocate -l 10G  /swap/swapfile-10G.swp    
+    sudo fallocate -l 50G  /swap/swapfile-50G.swp
+    sudo fallocate -l 100G /swap/swapfile-100G.swp
+    sudo chmod 600 /swap/*
+    sudo mkswap /swap/swapfile-5G.swp
+    sudo mkswap /swap/swapfile-10G.swp
+    sudo mkswap /swap/swapfile-50G.swp
+    sudo mkswap /swap/swapfile-100G.swp     
 }
 
 swap-on() {
-    sudo swapon /swapfile-50G
+    sudo swapon /swap/swapfile-5G.swp
+    sudo swapon /swap/swapfile-10G.swp
+    sudo swapon /swap/swapfile-50G.swp
+    sudo swapon /swap/swapfile-100G.swp 
 }
 
 swap-off() {
-    sudo swapoff /swapfile-50G
+    sudo swapoff /swap/swapfile-5G.swp
+    sudo swapoff /swap/swapfile-10G.swp
+    sudo swapoff /swap/swapfile-50G.swp
+    sudo swapoff /swap/swapfile-100G.swp 
 }
 
 help() {
@@ -154,6 +167,7 @@ swap-setup() {
     sudo fallocate -l 10G  /swap/swapfile-10G.swp    
     sudo fallocate -l 50G  /swap/swapfile-50G.swp
     sudo fallocate -l 100G /swap/swapfile-100G.swp
+    sudo chmod 600 /swap/*
     sudo mkswap /swap/swapfile-5G.swp
     sudo mkswap /swap/swapfile-10G.swp
     sudo mkswap /swap/swapfile-50G.swp
