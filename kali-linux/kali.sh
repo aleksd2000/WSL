@@ -5,6 +5,12 @@ cleverecho="/bin/echo -e -n"
 
 # Kali custom install script
 
+setup() {
+    sudo apt update
+    sudo apt install kali-win-kex -y
+
+}
+
 full-install() {
 
     sudo apt update
@@ -14,7 +20,6 @@ full-install() {
 windows() {
     kex --esm --ip 
 }
-
 
 code-insiders() {
         # Installs code-insiders
@@ -55,15 +60,15 @@ gh() {
 }
 
 swap-setup() {
-    sudo fallocate -l 5G   /swap/swapfile-5G.swp    
-    sudo fallocate -l 10G  /swap/swapfile-10G.swp    
-    sudo fallocate -l 50G  /swap/swapfile-50G.swp
-    sudo fallocate -l 100G /swap/swapfile-100G.swp
-    sudo chown root.root /swap/* && sudo chmod 600 /swap/*
-    sudo mkswap /swap/swapfile-5G.swp
-    sudo mkswap /swap/swapfile-10G.swp
-    sudo mkswap /swap/swapfile-50G.swp
-    sudo mkswap /swap/swapfile-100G.swp     
+    sudo fallocate -l 5G   /mnt/Roaming/swap/swapfile-5G.swp    
+    sudo fallocate -l 10G  /mnt/Roaming/swap/swapfile-10G.swp    
+    sudo fallocate -l 50G  /mnt/Roaming/swap/swapfile-50G.swp
+    sudo fallocate -l 100G /mnt/Roaming/swap/swapfile-100G.swp
+    sudo chown root.root /mnt/Roaming/swap/* && sudo chmod 600 /mnt/Roaming/swap/*
+    sudo mkswap /mnt/Roaming/swap/swapfile-5G.swp
+    sudo mkswap /mnt/Roaming/swap/swapfile-10G.swp
+    sudo mkswap /mnt/Roaming/swap/swapfile-50G.swp
+    sudo mkswap /mnt/Roaming/swap/swapfile-100G.swp     
 }
 
 swap-on() {
