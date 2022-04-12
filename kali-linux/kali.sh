@@ -72,10 +72,10 @@ swap-setup() {
 }
 
 swap-on() {
-    sudo swapon /swap/swapfile-5G.swp
-    sudo swapon /swap/swapfile-10G.swp
-    sudo swapon /swap/swapfile-50G.swp
-    sudo swapon /swap/swapfile-100G.swp 
+    sudo swapon /mnt/Roaming/swap/swapfile-5G.swp
+    sudo swapon /mnt/Roaming/swap/swapfile-10G.swp
+    sudo swapon /mnt/Roaming/swap/swapfile-50G.swp
+    sudo swapon /mnt/Roaming/swap/swapfile-100G.swp     
 }
 
 swap-off() {
@@ -244,6 +244,7 @@ EOF
 # Default Options
 
     if [ "$1" = "" ];                           then help;          fi
+    if [ "$1" = "setup" ];                     then setup;        fi
     if [ "$1" = "export" ];                     then export;        fi
     if [ "$1" = "windows" ]; 	                then windows;		fi
     if [ "$1" = "full-install" ]; 	            then full-install;	fi
