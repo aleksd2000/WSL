@@ -21,7 +21,6 @@ setup() {
 }
 
 full-install() {
-
     sudo apt update
     sudo apt install -y kali-linux-large
 }
@@ -93,6 +92,8 @@ swap-on() {
 }
 
 swap-off() {
+    $cleverecho "This is under construction ...\n"
+    return 0;
     sudo swapoff /swap/swapfile-5G.swp
     sudo swapoff /swap/swapfile-10G.swp
     sudo swapoff /swap/swapfile-50G.swp
@@ -126,7 +127,6 @@ custom-apps-list() {
 
     if [ "$1" = "" ];                           then help;          fi
     if [ "$1" = "setup" ];                      then setup;         fi
-    if [ "$1" = "export" ];                     then export;        fi
     if [ "$1" = "windows" ]; 	                then windows;		fi
     if [ "$1" = "full-install" ]; 	            then full-install;	fi
 
