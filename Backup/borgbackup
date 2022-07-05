@@ -1,0 +1,119 @@
+#!/bin/bash
+
+source .backup-config
+BORG_PASSPHRASE='Helios009!!009Helios'
+
+servers() {
+    $cleverecho "The following Borg Backup Locations are initialised: \n"
+    $cleverecho "\n"
+
+    if [ "$server_location1" != "" ]; then
+        $cleverecho "\t Server 1: $server_location1\n"
+        $cleverecho "\t Notes: $server_location1notes\n"        
+        $cleverecho "\n"
+    fi
+
+    if [ "$server_location2" != "" ]; then
+        $cleverecho "\t Server 2: $server_location2\n"
+        $cleverecho "\t Notes: $server_location2notes\n"        
+        $cleverecho "\n"
+    fi
+
+    if [ "$server_location3" != "" ]; then
+        $cleverecho "\t Server 3: $server_location3\n"
+        $cleverecho "\t Notes: $server_location3notes\n"        
+        $cleverecho "\n"
+    fi
+
+    $cleverecho "Please choose 1,2,3: "
+    read borg_location
+
+    case $borg_location in
+        1)  location="$server_location1";
+            ;;
+        2)  location="$server_location2";
+            ;;
+        3)  location="$server_location3";
+            ;;
+    esac
+    $cleverecho "Backups offline"
+}
+
+
+list-archives() {
+    borg list $location
+}
+
+create-archive() {
+    borg $option -v --stats $location::$backupname $file1 $file2 $file3
+}
+info-archives() {
+    borg $option $location::$backupname
+}
+
+delete-archive() {
+    borg delete $location::$backupname
+}
+
+nooptions() {
+    $cleverecho "This command requires command line arguments:\n"
+    $cleverecho "Try $0 help\n"
+}
+
+help() {
+    $cleverecho "Options available:\n"
+    $cleverecho "\n"
+    $cleverecho "\t\t$0 list\n"
+    $cleverecho "\t\t$0 info ARCHIVE-NAME\n"
+    $cleverecho "\t\t$0 create ARCHIVE-NAME FILES\n"
+    $cleverecho "\t\t$0 delete-archive ARCHIVE-NAME\n"
+}
+
+extract-archive() {
+    borg $option --list $location::$backupname 
+}
+
+if [ "$option" = "server" ];            then servers;           fi
+if [ "$option" = "extract" ];           then extract-archive;   fi
+if [ "$option" = "delete-archive" ];    then delete-archive;    fi
+if [ "$option" = "create" ];            then create-archive;    fi
+if [ "$option" = "list" ];              then list-archives;     fi
+if [ "$option" = "help" ];              then help;              fi
+if [ "$option" = "info" ];              then info-archives;     fi
+if [ "$option" = "" ];                  then nooptions;         fi
+
+
+oldscript() {
+#!/bin/sh
+
+# Question to pick repository
+REPOSITORY=
+
+#Bail if borg is already running, maybe previous run didn't finish
+if pidof -x borg >/dev/null; then
+    echo "Backup already running"
+        exit
+	fi
+	
+	# Setting this, so you won't be asked for your repository passphrase:
+	export BORG_PASSPHRASE='Helios009!!009Helios'
+	# or this to ask an external program to supply the passphrase:
+	export BORG_PASSCOMMAND='pass show backup'
+	
+	# Backup all of /home and /var/www except a few
+	# excluded directories
+
+    # Backup Home Directories
+	borg create -v --stats                          	    \
+	    $REPOSITORY::`hostname`-`date +%Y-%m-%d`-HOME       \
+	        /home/aleks                                     \
+		    --exclude '/home/aleks/.cache'                  \
+				    
+			# Use the prune subcommand to maintain 7 daily, 4 weekly and 6 monthly
+			# archives of THIS machine. The '{hostname}-' prefix is very important to
+			# limit prune's operation to this machine's archives and not apply to
+			# other machine's archives also.
+#			    borg prune -v --list $REPOSITORY --prefix `hostname`- \
+#				        --keep-daily=7 --keep-weekly=4 --keep-monthly=6
+
+}
