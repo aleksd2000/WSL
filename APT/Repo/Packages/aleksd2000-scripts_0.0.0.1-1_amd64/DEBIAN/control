@@ -1,5 +1,5 @@
 Package: Custom.ShellScripts.for.AleksD2000
-Version: 0.0.1
+Version: 0.0.2
 Maintainer: AleksD2000 <mighty_cast@icloud.com>
 Depends: libc6
 Architecture: amd64

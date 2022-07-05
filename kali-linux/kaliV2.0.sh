@@ -5,6 +5,11 @@ blankline="/bin/echo -e -n \n"
 version="2.0"
 progname="$(basename "$0")"
 
+
+# System Variables
+
+repoaddress="139.162.201.244"
+
 setup() {
     $cleverecho "This will install kali-win-kex onto your Virtual Machine.\n"
     $cleverecho "Is this what you want to do?: "
@@ -173,5 +178,9 @@ nooptions() {
 	$cleverecho "\tTry $progname --help\n"
 }
 
+repo-start() {
+	screen -dmS APT-Repo python -m http.server 8000 --bind $repoaddress
+
+}
 if [ "$1" = "" ]; then nooptions; fi
 if [[ "$1" = "repo" && "$2" = "setup" ]]; then repo-setup1; fi
