@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cleverecho="/bin/echo -e - n"
+cleverecho="/bin/echo -e -n"
 blankline="/bin/echo -e -n \n"
 version="2.0"
 progname="$(basename "$0")"
@@ -112,3 +112,20 @@ disk() {
 	fi
 
 }
+
+repo-setup1() {
+	$cleverecho "Install Packages?: "
+	read yesno
+
+	if [[ "$yesno" = "Yes" ]] | [[ "$yesno" = "yes" ]] | [[ "$yesno" = "Y" ]] | [[ "$yesno" = "y" ]]; then
+		echo sudo dpkg-dev apt-get install -y gcc gpg dpkg-dev libc6-dev
+	fi
+
+	if  [[ "$yesno" = "No" ]] | [[ "$yesno" = "no" ]]  | [[ "$yesno" = "N" ]] | [[ "$yesno" = "n" ]]; then
+		$cleverecho "That's not a problem, come back soon\n";
+		exit 0;
+	fi
+
+}
+
+if [[ "$1" = "repo" && "$2" = "setup" ]]; then repo-setup1; fi
