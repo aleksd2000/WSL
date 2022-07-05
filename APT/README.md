@@ -1,3 +1,5 @@
+# 
+# Host on Linode ??
 # APT
 Custom Apt Repository
 
@@ -21,7 +23,6 @@ move *.deb files into APT/pool/main
 cd ../../
 cd APT/
 
-test
 dpkg-scanpackages --arch amd64 pool/ > dists/stable/main/binary-amd64/Packages
 cat APT/dists/stable/main/binary-amd64/Packages | gzip -9 > APT/dists/stable/main/binary-amd64/Packages.gz
 
@@ -31,5 +32,3 @@ screen -dmS apt-repo python -m http.server 8000 --bind $repoaddress
 apt update --allow-insecure-repositories
 
 sudo apt install custom.shellscripts.for.aleksd2000
-
-
