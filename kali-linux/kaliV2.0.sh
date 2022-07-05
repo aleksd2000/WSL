@@ -128,4 +128,12 @@ repo-setup1() {
 
 }
 
+nooptions() {
+	$cleverecho "$progname\n"
+	$blankline
+	$cleverecho "\tThis command requires command line arguments\n"
+	$cleverecho "\tTry $progname --help\n"
+}
+
+if [ "$1" = "" ]; then nooptions; fi
 if [[ "$1" = "repo" && "$2" = "setup" ]]; then repo-setup1; fi
