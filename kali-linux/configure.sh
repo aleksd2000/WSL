@@ -63,18 +63,18 @@ mount() {
 }
 
 custom() {
-
-	losetup --partscan --find --show $image
-
-	read
 	partx -v -a /Servers/Storage2/WSL/Kali/home.img
-	mount -t auto /dev/loop0p1 /Servers/WSL/notes
-	mount -t auto /dev/loop0p2 /Servers/WSL/p1
+	mount /dev/loop0p1 /Servers/WSL/notes
+	mount /dev/loop0p2 /Servers/WSL/partitions/1
+	exit 0;
 }
 
 unmount() {
 	partx -v -d /dev/loop0
-	losetup -d /dev/loop0
+	losetup  -d /dev/loop0
+	losetup  -d /dev/loop1
+	losetup  -d /dev/loop2
+	losetup  -d /dev/loop3
 }
 
 if [ "$1" = "test" ]; then test; fi
