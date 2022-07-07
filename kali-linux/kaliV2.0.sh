@@ -138,8 +138,22 @@ repo-setup0() {
 # Host on Linode ??
 # Custom Apt Repository
 
-repoaddress="139.162.201.244"
+repoaddress="apt.ukhosts.cc"
+repoport="8000"
 
+# Install APT Repo into /etc/apt/sources.d/$repoaddress.list
+
+$cleverecho "Install Custom Repository for $repoaddress?: "
+read yesno
+	if [[ "$yesno" = "Yes" || "$yesno" = "yes" || "$yesno" = "Y" || "$yesno" = "y" ]]; then
+		sudo $cleverecho "deb [arch=amd64] http://$repoaddress:$repoport/ stable main" > /etc/apt/sources.list.d/aleksd2000.list
+		sudo apt update --allow-insecure-repositories
+
+	fi
+	if  [[ "$yesno" = "No" || "$yesno" = "no" || "$yesno" = "N" || "$yesno" = "n" ]]; then
+		$cleverecho "That's not a problem, come back soon\n";
+		exit 0;
+	fi
 # custom packages for apt repo: gpg gcc dpkg-dev libc6-dev
 
 sudo apt-get install -y gcc gpg dpkg-dev libc6-dev
@@ -152,7 +166,7 @@ sudo apt-get install -y gcc gpg dpkg-dev libc6-dev
 
 cd Repo/Packages/
 
-dpkg-build aleksd2000-scripts_0.0.0.0-1/
+dpkg --build aleksd2000-scripts_0.0.0.0-1/
 dpkg --info aleksd2000-scripts_0.0.0.0-1.deb
 
 move *.deb files into APT/pool/main
@@ -165,7 +179,6 @@ cat APT/dists/stable/main/binary-amd64/Packages | gzip -9 > APT/dists/stable/mai
 cd APT/dists/stable && APT/generate-release.sh > Release
 
 screen -dmS apt-repo python -m http.server 8000 --bind $repoaddress
-apt update --allow-insecure-repositories
 
 # sudo apt install custom.shellscripts.for.aleksd2000
 
@@ -182,5 +195,22 @@ repo-start() {
 	screen -dmS APT-Repo python -m http.server 8000 --bind $repoaddress
 
 }
+
+repo-address() {
+	
+$cleverecho "Install Custom Repository for $repoaddress?: "
+read yesno
+	if [[ "$yesno" = "Yes" || "$yesno" = "yes" || "$yesno" = "Y" || "$yesno" = "y" ]]; then
+		sudo $cleverecho "deb [arch=amd64] http://$repoaddress:$repoport/ stable main" > /etc/apt/sources.list.d/aleksd2000.list
+		sudo apt update --allow-insecure-repositories
+
+	fi
+	if  [[ "$yesno" = "No" || "$yesno" = "no" || "$yesno" = "N" || "$yesno" = "n" ]]; then
+		$cleverecho "That's not a problem, come back soon\n";
+		exit 0;
+	fi
+}
+
 if [ "$1" = "" ]; then nooptions; fi
+if [[ "$1" = "repo" && "$2" = "add" ]];   then repo-setup1; fi
 if [[ "$1" = "repo" && "$2" = "setup" ]]; then repo-setup1; fi
