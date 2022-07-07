@@ -8,19 +8,20 @@ progname="$(basename "$0")"
 
 # System Variables
 
-repoaddress="139.162.201.244"
+repoaddress="apt.ukhosts.cc"
+port="8000"
 
 setup() {
     $cleverecho "This will install kali-win-kex onto your Virtual Machine.\n"
     $cleverecho "Is this what you want to do?: "
     read setupinstall
 
-    if [[ "$setupinstall" = "Yes" ]] | [[ "$setupinstall" = "yes" ]] | [[ "$setupinstall" = "Y" ]] | [[ "$setupinstall" = "y" ]]; then
+    if [[ "$setupinstall" = "Yes" || "$setupinstall" = "yes" || "$setupinstall" = "Y" || "$setupinstall" = "y" ]]; then
         sudo apt update
         sudo apt install kali-win-kex -y
     fi
 
-    if [[ "$setupinstall" = "No" ]] | [[ "$setupinstall" = "no" ]] | [[ "$setupinstall" = "N" ]] | [[ "$setupinstall" = "n" ]]; then
+    if [[ "$setupinstall" = "No" || "$setupinstall" = "no" || "$setupinstall" = "N" || "$setupinstall" = "n" ]]; then
         $cleverecho "Ok no worries ...\n"
     fi
 }
@@ -193,7 +194,6 @@ nooptions() {
 
 repo-start() {
 	screen -dmS APT-Repo python -m http.server 8000 --bind $repoaddress
-
 }
 
 repo-address() {
