@@ -1,5 +1,13 @@
 #!/bin/bash
 
+
+# Check to see if someone is already running the script and exit if it is so.
+
+if pidof -x $0 >/dev/null; then
+    echo "Script already running"
+    exit
+fi
+
 cleverecho="/bin/echo -e - n"
 blankline="/bin/echo -e -n \n"
 version="2.0"
