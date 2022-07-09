@@ -1,0 +1,27 @@
+Origin: AleksD2000 Repository
+Label: AleksD2000
+Suite: stable
+Codename: stable
+Version: 1.0
+Architectures: amd64 arm64 arm7
+Components: main
+Description: AleksD2000 Custom Repository
+Date: Tue, 05 Jul 2022 22:39:30 +0000
+MD5Sum:
+ 6dc125dad06a01a14aa8ffc45df7185f 718 main/Release
+ 60ee072157161c48a346d2ae0126e175 502 main/binary-amd64/Packages.gz
+ 7fc7284c500c6c353163d99d7f5d36d0 864 main/binary-amd64/Packages
+ fcf45cd0280d2efe819bcbc5c069e0eb 313 main/binary-all/Packages.gz
+ 8aecdda596e93c28c41e08052f34ba51 407 main/binary-all/Packages
+SHA1:
+ 22b07720eadcdadcd993f22a13c3c9e935be0bb5 718 main/Release
+ d27a8d5a5fd442dd87a5f7889dd744fcd8bf2b85 502 main/binary-amd64/Packages.gz
+ 1d956381d844f7057a6964b85f6a208ef7b47be1 864 main/binary-amd64/Packages
+ 4ed5afd4987e3074a49984d442e2b4102d25e3ff 313 main/binary-all/Packages.gz
+ ae70129571525633b473491328050fcb726684b1 407 main/binary-all/Packages
+SHA256:
+ 2cbf786fd5ec51ca72769d5633c5586a2c5542e2be6a6634a7017db23005dd19 718 main/Release
+ 64b5214662657909d09a04893962279ea0ef94fffeeec63fcaef03fe1dbe764e 502 main/binary-amd64/Packages.gz
+ 82d2b2efd6864ceacd7413e8bc72eb167126fd7c1747c0a1006d81448f32627e 864 main/binary-amd64/Packages
+ fdd9491485b15fab521eb5d7ae84ae697508bc93c8fdc6704cb2e6b245dc2ad6 313 main/binary-all/Packages.gz
+ 83cda1df373d25bfff380e17d7105fe407a69511d65464256aa20d2a54bb0fb7 407 main/binary-all/Packages

@@ -1,0 +1,26 @@
+Package: Custom.ShellScripts.for.AleksD2000
+Version: 0.0.1
+Architecture: amd64
+Maintainer: AleksD2000 <mighty_cast@icloud.com>
+Depends: libc6
+Filename: pool/main/aleksd2000-scripts_0.0.0.1-1_amd64.deb
+Size: 844
+MD5sum: 343f18213a7ef197fa74d6321e516197
+SHA1: 87c061a169f97f2c71a1f3483dede4db378aa856
+SHA256: 0c33ef35ecee2c46df6479622dcc0c9cf7171ec7e2eeda65a923991849668868
+Homepage: http://aleksd2000.cc
+Description: A few programs that do different things
+
+Package: hello-world
+Version: 0.0.1
+Architecture: amd64
+Maintainer: example <example@example.com>
+Depends: libc6
+Filename: pool/main/helloworld_0.0.0.1-1_amd64.deb
+Size: 2768
+MD5sum: 8f8dbb2754a7503ea100ab41fd8f0fb9
+SHA1: c5bf192548faf982852541666467d6eb9f5cdc6e
+SHA256: ce9654edf0b6b059b75d82037bf6c80415e6b3df3a7df6e737127eff64633aa6
+Homepage: http://example.com
+Description: A program that prints hello
+

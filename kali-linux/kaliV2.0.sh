@@ -1,5 +1,6 @@
 #!/bin/bash
 
+<<<<<<< HEAD
 
 # Check to see if someone is already running the script and exit if it is so.
 
@@ -9,21 +10,30 @@ if pidof -x $0 >/dev/null; then
 fi
 
 cleverecho="/bin/echo -e - n"
+=======
+cleverecho="/bin/echo -e -n"
+>>>>>>> 452f863dfe407320a90bdb4cd05513a29a57a0e8
 blankline="/bin/echo -e -n \n"
 version="2.0"
 progname="$(basename "$0")"
+
+
+# System Variables
+
+repoaddress="apt.ukhosts.cc"
+port="8000"
 
 setup() {
     $cleverecho "This will install kali-win-kex onto your Virtual Machine.\n"
     $cleverecho "Is this what you want to do?: "
     read setupinstall
 
-    if [[ "$setupinstall" = "Yes" ]] | [[ "$setupinstall" = "yes" ]] | [[ "$setupinstall" = "Y" ]] | [[ "$setupinstall" = "y" ]]; then
+    if [[ "$setupinstall" = "Yes" || "$setupinstall" = "yes" || "$setupinstall" = "Y" || "$setupinstall" = "y" ]]; then
         sudo apt update
         sudo apt install kali-win-kex -y
     fi
 
-    if [[ "$setupinstall" = "No" ]] | [[ "$setupinstall" = "no" ]] | [[ "$setupinstall" = "N" ]] | [[ "$setupinstall" = "n" ]]; then
+    if [[ "$setupinstall" = "No" || "$setupinstall" = "no" || "$setupinstall" = "N" || "$setupinstall" = "n" ]]; then
         $cleverecho "Ok no worries ...\n"
     fi
 }
@@ -120,3 +130,99 @@ disk() {
 	fi
 
 }
+
+repo-setup1() {
+	$cleverecho "Install Packages?: "
+	read yesno
+
+	if [[ "$yesno" = "Yes" || "$yesno" = "yes" || "$yesno" = "Y" || "$yesno" = "y" ]]; then
+		echo sudo dpkg-dev apt-get install -y gcc gpg dpkg-dev libc6-dev
+	fi
+
+	if  [[ "$yesno" = "No" || "$yesno" = "no" || "$yesno" = "N" || "$yesno" = "n" ]]; then
+		$cleverecho "That's not a problem, come back soon\n";
+		exit 0;
+	fi
+
+}
+
+repo-setup0() {
+
+# Host on Linode ??
+# Custom Apt Repository
+
+repoaddress="apt.ukhosts.cc"
+repoport="8000"
+
+# Install APT Repo into /etc/apt/sources.d/$repoaddress.list
+
+$cleverecho "Install Custom Repository for $repoaddress?: "
+read yesno
+	if [[ "$yesno" = "Yes" || "$yesno" = "yes" || "$yesno" = "Y" || "$yesno" = "y" ]]; then
+		sudo $cleverecho "deb [arch=amd64] http://$repoaddress:$repoport/ stable main" > /etc/apt/sources.list.d/aleksd2000.list
+		sudo apt update --allow-insecure-repositories
+
+	fi
+	if  [[ "$yesno" = "No" || "$yesno" = "no" || "$yesno" = "N" || "$yesno" = "n" ]]; then
+		$cleverecho "That's not a problem, come back soon\n";
+		exit 0;
+	fi
+# custom packages for apt repo: gpg gcc dpkg-dev libc6-dev
+
+sudo apt-get install -y gcc gpg dpkg-dev libc6-dev
+
+#######
+
+# Place all custom scripts in 
+#    Repo/Packages/
+# then
+
+cd Repo/Packages/
+
+dpkg --build aleksd2000-scripts_0.0.0.0-1/
+dpkg --info aleksd2000-scripts_0.0.0.0-1.deb
+
+move *.deb files into APT/pool/main
+cd ../../
+cd APT/
+
+dpkg-scan packages --arch amd64 pool/ > dists/stable/main/binary-amd64/Packages
+cat APT/dists/stable/main/binary-amd64/Packages | gzip -9 > APT/dists/stable/main/binary-amd64/Packages.gz
+
+cd APT/dists/stable && APT/generate-release.sh > Release
+
+screen -dmS apt-repo python -m http.server 8000 --bind $repoaddress
+
+# sudo apt install custom.shellscripts.for.aleksd2000
+
+}
+
+nooptions() {
+	$cleverecho "$progname\n"
+	$blankline
+	$cleverecho "\tThis command requires command line arguments\n"
+	$cleverecho "\tTry $progname --help\n"
+}
+
+repo-start() {
+	screen -dmS APT-Repo python -m http.server 8000 --bind $repoaddress
+}
+
+repo-address() {
+	
+$cleverecho "Install Custom Repository for $repoaddress?: "
+read yesno
+	if [[ "$yesno" = "Yes" || "$yesno" = "yes" || "$yesno" = "Y" || "$yesno" = "y" ]]; then
+		sudo $cleverecho "deb [arch=amd64] http://$repoaddress:$repoport/ stable main" > /etc/apt/sources.list.d/aleksd2000.list
+		sudo apt update --allow-insecure-repositories
+
+	fi
+	if  [[ "$yesno" = "No" || "$yesno" = "no" || "$yesno" = "N" || "$yesno" = "n" ]]; then
+		$cleverecho "That's not a problem, come back soon\n";
+		exit 0;
+	fi
+}
+
+if [ "$1" = "" ]; then nooptions; fi
+if [[ "$1" = "repo" && "$2" = "add" ]];   then repo-setup1; fi
+if [[ "$1" = "repo" && "$2" = "setup" ]]; then repo-setup1; fi
