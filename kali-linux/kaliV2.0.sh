@@ -9,15 +9,6 @@ if pidof -x $0 >/dev/null; then
     exit
 fi
 
-cleverecho="/bin/echo -e - n"
-=======
-cleverecho="/bin/echo -e -n"
->>>>>>> 452f863dfe407320a90bdb4cd05513a29a57a0e8
-blankline="/bin/echo -e -n \n"
-version="2.0"
-progname="$(basename "$0")"
-
-
 # System Variables
 
 repoaddress="apt.ukhosts.cc"
