@@ -1,6 +1,9 @@
 #!/bin/bash
 
-<<<<<<< HEAD
+cleverecho="/bin/echo -e -n"
+blankline="/bin/echo -e -n \n"
+version="2.0"
+progname="$(basename "$0")"
 
 # Check to see if someone is already running the script and exit if it is so.
 
