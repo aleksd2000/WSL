@@ -16,27 +16,27 @@ sudo certbot certonly --webroot --agree-tos --email certbot@aleksd2000.cc -d mai
 
 sudo nano /etc/nginx/templates/ssl.tmpl
 
-Find the following 2 lines.
+#Find the following 2 lines.
 
-ssl_certificate /etc/ssl/certs/iRedMail.crt;
-ssl_certificate_key /etc/ssl/private/iRedMail.key;
+# ssl_certificate /etc/ssl/certs/iRedMail.crt;
+# ssl_certificate_key /etc/ssl/private/iRedMail.key;
 
-Replace them with:
+#Replace them with:
 
-ssl_certificate /etc/letsencrypt/live/mail.your-domain.com/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/mail.your-domain.com/privkey.pem;
+# ssl_certificate /etc/letsencrypt/live/mail.your-domain.com/fullchain.pem;
+# ssl_certificate_key /etc/letsencrypt/live/mail.your-domain.com/privkey.pem;
 
-Installing TLS Certificate in Postfix and Dovecot
+#Installing TLS Certificate in Postfix and Dovecot
 
 sudo nano /etc/postfix/main.cf
 
-Find the following 3 lines. (line 95, 96, 97).
+#Find the following 3 lines. (line 95, 96, 97).
 
 smtpd_tls_key_file = /etc/ssl/private/iRedMail.key
 smtpd_tls_cert_file = /etc/ssl/certs/iRedMail.crt
 smtpd_tls_CAfile = /etc/ssl/certs/iRedMail.crt
 
-Replace them with:
+#Replace them with:
 
 smtpd_tls_key_file = /etc/letsencrypt/live/mail.your-domain.com/privkey.pem
 smtpd_tls_cert_file = /etc/letsencrypt/live/mail.your-domain.com/cert.pem
@@ -44,16 +44,16 @@ smtpd_tls_CAfile = /etc/letsencrypt/live/mail.your-domain.com/chain.pem
 
 sudo systemctl reload postfix
 
-Next, edit the main configuration file of Dovecot.
+#Next, edit the main configuration file of Dovecot.
 
 sudo nano /etc/dovecot/dovecot.conf
 
-Fine the following 2 lines. (line 47, 48)
+#Fine the following 2 lines. (line 47, 48)
 
 ssl_cert = </etc/ssl/certs/iRedMail.crt
 ssl_key = </etc/ssl/private/iRedMail.key
 
-Replace them with:
+#Replace them with:
 
 ssl_cert = </etc/letsencrypt/live/mail.your-domain.com/fullchain.pem
 ssl_key = </etc/letsencrypt/live/mail.your-domain.com/privkey.pem
